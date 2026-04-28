@@ -24,61 +24,60 @@ export default defineConfig({
 
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'JavaScript', link: '/javascript/' },
-      { text: 'TypeScript', link: '/typescript/' },
-      { text: 'React', link: '/react/' },
-      { text: 'Web', link: '/web/' },
-      { text: 'Code Quality', link: '/code-quality/' },
+      { text: '컴포넌트 설계', link: '/component-design/' },
+      { text: '훅 설계', link: '/custom-hooks/' },
+      { text: '상태 관리', link: '/state-management/' },
+      { text: '비동기/에러', link: '/async-error-handling/' },
+      { text: 'Props/인터페이스', link: '/props-interface/' },
+      { text: '아키텍처', link: '/architecture/' },
     ],
 
     sidebar: {
-      '/javascript/': [
+      '/component-design/': [
         {
-          text: 'JavaScript',
+          text: '컴포넌트 설계',
           items: [
-            { text: '개요', link: '/javascript/' },
-            { text: '스코프를 좁혀서 작성하기', link: '/javascript/closure' },
-            { text: '비동기 코드를 명확하게 작성하기', link: '/javascript/async-patterns' },
+            { text: '개요', link: '/component-design/' },
           ],
         },
       ],
-      '/typescript/': [
+      '/custom-hooks/': [
         {
-          text: 'TypeScript',
+          text: '훅 설계',
           items: [
-            { text: '개요', link: '/typescript/' },
-            { text: '타입을 좁혀서 안전하게 사용하기', link: '/typescript/type-narrowing' },
-            { text: '재사용 가능한 타입 설계하기', link: '/typescript/generics' },
+            { text: '개요', link: '/custom-hooks/' },
           ],
         },
       ],
-      '/react/': [
+      '/state-management/': [
         {
-          text: 'React',
+          text: '상태 관리',
           items: [
-            { text: '개요', link: '/react/' },
-            { text: '단일 책임 컴포넌트 작성하기', link: '/react/component-design' },
-            { text: '상태를 적절한 위치에 배치하기', link: '/react/state-management' },
+            { text: '개요', link: '/state-management/' },
           ],
         },
       ],
-      '/web/': [
+      '/async-error-handling/': [
         {
-          text: 'Web',
+          text: '비동기 처리와 에러 핸들링',
           items: [
-            { text: '개요', link: '/web/' },
-            { text: '렌더링 성능을 고려한 코드 작성하기', link: '/web/browser-rendering' },
-            { text: '리소스 로딩을 최적화하기', link: '/web/performance' },
+            { text: '개요', link: '/async-error-handling/' },
           ],
         },
       ],
-      '/code-quality/': [
+      '/props-interface/': [
         {
-          text: 'Code Quality',
+          text: '컴포넌트 인터페이스',
           items: [
-            { text: '개요', link: '/code-quality/' },
-            { text: '가독성 높은 코드 작성하기', link: '/code-quality/readability' },
-            { text: '예측 가능한 코드 작성하기', link: '/code-quality/predictability' },
+            { text: '개요', link: '/props-interface/' },
+          ],
+        },
+      ],
+      '/architecture/': [
+        {
+          text: '아키텍처와 폴더 구조',
+          items: [
+            { text: '개요', link: '/architecture/' },
           ],
         },
       ],
