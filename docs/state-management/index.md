@@ -4,7 +4,7 @@
 
 ## 지침 목록
 
-- [Local vs Global 상태 판단 기준](./local-vs-global) - 상태를 어디에 둘지 결정하는 기준을 세웁니다
+- [Local vs Global 상태 판단하기](./local-vs-global) - 상태를 어디에 둘지 결정하는 기준을 세웁니다
 - [상태를 적절한 위치에 배치하기](./state-placement) - 상태는 필요한 곳에서 가장 가까운 위치에 선언합니다
 - [서버 상태와 클라이언트 상태를 분리하기](./server-vs-client-state) - React Query 등을 활용하여 서버 상태를 효과적으로 관리합니다
 - [파생 가능한 값을 상태로 만들지 않기](./derived-state) - 계산 가능한 값은 별도의 상태가 아닌 렌더링 중에 계산합니다

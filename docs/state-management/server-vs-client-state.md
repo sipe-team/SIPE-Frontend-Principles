@@ -9,12 +9,12 @@
 | 지속성 | 서버에 영구 저장 | 세션/페이지 단위 |
 | 예시 | 유저 정보, 상품 목록, 주문 내역 | 모달 열림, 폼 입력값, 탭 선택 |
 
-## 서버 데이터를 전역 스토어에서 관리하지 않기
+## 규칙: 서버 데이터를 전역 스토어에서 관리하지 마세요
 
 캐싱, 재시도, 백그라운드 리패치를 직접 구현하면 코드가 복잡해지고 버그가 생긴다. 서버 상태 라이브러리에 맡긴다.
 
 :::tabs
-== Before
+== Bad
 ```tsx
 // 서버 데이터를 Zustand에서 수동 관리한다
 const useProductStore = create((set) => ({
@@ -46,7 +46,7 @@ function ProductList() {
 }
 ```
 
-== After
+== Good
 ```tsx
 // React Query가 캐싱, 재시도, 백그라운드 리패치를 자동으로 처리한다
 function useProducts(category?: string) {
@@ -68,12 +68,12 @@ function ProductList({ category }: { category?: string }) {
 ```
 :::
 
-## 서버 상태와 클라이언트 상태를 같은 객체에 섞지 않기
+## 규칙: 서버 상태와 클라이언트 상태를 같은 객체에 섞지 마세요
 
 하나의 상태 객체에 서버 데이터와 UI 상태가 섞이면, 서버 데이터 업데이트가 UI 상태까지 리렌더링을 유발한다.
 
 :::tabs
-== Before
+== Bad
 ```tsx
 function OrderPage() {
   const [state, setState] = useState({
@@ -97,7 +97,7 @@ function OrderPage() {
 }
 ```
 
-== After
+== Good
 ```tsx
 function OrderPage() {
   // 서버 상태: React Query에 위임
@@ -122,12 +122,12 @@ function OrderPage() {
 ```
 :::
 
-## 낙관적 업데이트로 사용자 경험 개선하기
+## 규칙: 낙관적 업데이트로 사용자 경험을 개선하세요
 
 서버 응답을 기다린 후에야 UI가 바뀌면 사용자는 느리다고 느낀다. 먼저 UI를 업데이트하고, 실패 시 롤백한다.
 
 :::tabs
-== Before
+== Bad
 ```tsx
 // 서버 응답을 기다린 후에야 UI가 변경된다
 function LikeButton({ postId, isLiked, likeCount }) {
@@ -148,7 +148,7 @@ function LikeButton({ postId, isLiked, likeCount }) {
 }
 ```
 
-== After
+== Good
 ```tsx
 // 클릭 즉시 UI를 반영하고, 실패 시 롤백한다
 function LikeButton({ postId, isLiked, likeCount }) {
@@ -185,12 +185,12 @@ function LikeButton({ postId, isLiked, likeCount }) {
 ```
 :::
 
-## queryKey를 체계적으로 관리하기
+## 규칙: queryKey를 체계적으로 관리하세요
 
 queryKey는 서버 상태의 캐시 식별자다. 일관된 구조로 관리해야 캐시 무효화가 쉬워진다.
 
 :::tabs
-== Before
+== Bad
 ```tsx
 // queryKey가 파일마다 다른 형태로 흩어져 있다
 useQuery({ queryKey: ['products'], ... })
@@ -199,7 +199,7 @@ useQuery({ queryKey: ['getProductReviews', productId], ... })
 useQuery({ queryKey: ['products', 'list', category, page], ... })
 ```
 
-== After
+== Good
 ```tsx
 // queryKey를 팩토리 패턴으로 중앙 관리한다
 export const productKeys = {

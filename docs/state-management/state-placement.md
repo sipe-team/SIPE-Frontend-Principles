@@ -2,12 +2,12 @@
 
 상태는 그것을 사용하는 컴포넌트에서 가장 가까운 위치에 선언한다. 불필요하게 높은 곳에 올리면 관련 없는 컴포넌트까지 리렌더링되고, 데이터 흐름을 파악하기 어려워진다.
 
-## 가장 가까운 공통 부모에 두기
+## 규칙: 가장 가까운 공통 부모에 두세요
 
 상태를 끌어올릴 때는 "이 상태를 읽거나 변경하는 컴포넌트들의 가장 가까운 공통 조상"에 둔다.
 
 :::tabs
-== Before
+== Bad
 ```tsx
 // SearchInput과 SearchResults만 사용하는 상태가 App에 있다
 function App() {
@@ -30,7 +30,7 @@ function App() {
 }
 ```
 
-== After
+== Good
 ```tsx
 function App() {
   return (
@@ -62,12 +62,12 @@ function SearchPage() {
 ```
 :::
 
-## Props Drilling이 깊어지면 합성(Composition)을 먼저 시도하기
+## 규칙: Props Drilling이 깊어지면 합성(Composition)을 먼저 시도하세요
 
 Props가 3단계 이상 전달되면 Context보다 먼저 컴포넌트 합성을 시도한다. 합성은 중간 컴포넌트가 props를 알 필요를 없앤다.
 
 :::tabs
-== Before
+== Bad
 ```tsx
 // user가 3단계를 통과한다
 function Dashboard({ user }) {
@@ -83,7 +83,7 @@ function UserSection({ user }) {
 }
 ```
 
-== After
+== Good
 ```tsx
 // 합성을 사용하면 중간 컴포넌트가 user를 몰라도 된다
 function Dashboard({ user }) {
@@ -107,12 +107,12 @@ function Sidebar({ userSection }) {
 ```
 :::
 
-## Context는 자주 바뀌지 않는 값에 사용하기
+## 규칙: Context는 자주 바뀌지 않는 값에 사용하세요
 
 Context 값이 자주 바뀌면 해당 Context를 구독하는 모든 컴포넌트가 리렌더링된다. 자주 바뀌는 상태는 외부 스토어가 적합하다.
 
 :::tabs
-== Before
+== Bad
 ```tsx
 // 매 초마다 Context를 구독하는 모든 컴포넌트가 리렌더링된다
 const TimerContext = createContext(0)
@@ -133,7 +133,7 @@ function TimerProvider({ children }) {
 }
 ```
 
-== After
+== Good
 ```tsx
 // 자주 바뀌는 상태는 외부 스토어 + selector로 필요한 곳만 구독한다
 const useTimerStore = create((set) => ({
@@ -157,12 +157,12 @@ const ThemeContext = createContext<'light' | 'dark'>('light')
 ```
 :::
 
-## 상위에 있는 상태를 내려야 할 때를 인지하기
+## 규칙: 상위에 있는 상태를 내려야 할 때를 인지하세요
 
 상태를 올리기만 하는 게 아니다. 상위에 있는 상태가 실제로는 하위 컴포넌트에서만 쓰인다면 내려야 한다.
 
 :::tabs
-== Before
+== Bad
 ```tsx
 // 각 필드의 변경이 폼 전체를 리렌더링한다
 function CheckoutForm() {
@@ -186,7 +186,7 @@ function CheckoutForm() {
 }
 ```
 
-== After
+== Good
 ```tsx
 // 각 섹션이 자신의 상태를 직접 관리한다
 function CheckoutForm() {

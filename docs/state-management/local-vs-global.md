@@ -1,8 +1,8 @@
-# Local vs Global 상태 판단 기준
+# Local vs Global 상태 판단하기
 
 상태는 항상 로컬에서 시작한다. "나중에 다른 곳에서도 쓸 수 있으니까"라는 이유로 처음부터 전역에 두지 않는다.
 
-## 로컬 상태부터 시작하기
+## 규칙: 로컬 상태부터 시작하세요
 
 상태의 범위는 점진적으로 넓힌다.
 
@@ -17,7 +17,7 @@ Context API
 ```
 
 :::tabs
-== Before
+== Bad
 ```tsx
 // 이 모달을 사용하는 컴포넌트는 하나뿐인데 전역에 두고 있다
 import { useModalStore } from '@/stores/modalStore'
@@ -34,7 +34,7 @@ function ProductDetailPage() {
 }
 ```
 
-== After
+== Good
 ```tsx
 // 모달 상태는 사용하는 컴포넌트에서 로컬로 관리한다
 function ProductDetailPage() {
@@ -52,7 +52,7 @@ function ProductDetailPage() {
 ```
 :::
 
-## 전역 상태는 "여러 페이지에서 공유"될 때만 사용하기
+## 규칙: 전역 상태는 "여러 페이지에서 공유"될 때만 사용하세요
 
 전역 상태가 적절한 조건:
 1. 여러 라우트/페이지에 걸쳐 공유되는 데이터
@@ -60,7 +60,7 @@ function ProductDetailPage() {
 3. 서버 상태가 아닌 순수 클라이언트 상태
 
 :::tabs
-== Before
+== Bad
 ```tsx
 // 서버 데이터를 전역 스토어에서 수동으로 관리하고 있다
 const useProductStore = create((set) => ({
@@ -74,7 +74,7 @@ const useProductStore = create((set) => ({
 }))
 ```
 
-== After
+== Good
 ```tsx
 // 전역 스토어는 테마, 사이드바 같은 순수 UI 상태에만 사용한다
 const useThemeStore = create((set) => ({
@@ -95,12 +95,12 @@ function useProducts() {
 ```
 :::
 
-## 전역 상태의 크기를 최소화하기
+## 규칙: 전역 상태의 크기를 최소화하세요
 
 하나의 거대한 스토어보다 작은 단위의 스토어가 낫다. 스토어가 커지면 어떤 컴포넌트가 어떤 상태에 의존하는지 파악하기 어렵다.
 
 :::tabs
-== Before
+== Bad
 ```tsx
 // 하나의 스토어에 모든 것이 들어 있다
 const useStore = create((set) => ({
@@ -118,7 +118,7 @@ const useStore = create((set) => ({
 }))
 ```
 
-== After
+== Good
 ```tsx
 // 도메인별로 분리한다
 const useAuthStore = create((set) => ({

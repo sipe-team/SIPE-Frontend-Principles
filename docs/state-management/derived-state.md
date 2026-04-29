@@ -2,10 +2,10 @@
 
 이미 존재하는 state나 props에서 계산할 수 있는 값을 별도의 상태로 만들면, 동기화 버그가 생긴다. 원본 데이터가 바뀌어도 파생 상태를 깜빡하고 업데이트하지 않으면 UI가 불일치한다.
 
-## 계산 가능한 값은 렌더링 중에 계산하기
+## 규칙: 계산 가능한 값은 렌더링 중에 계산하세요
 
 :::tabs
-== Before
+== Bad
 ```tsx
 function Cart({ items }: { items: CartItem[] }) {
   const [totalPrice, setTotalPrice] = useState(0)
@@ -23,7 +23,7 @@ function Cart({ items }: { items: CartItem[] }) {
 }
 ```
 
-== After
+== Good
 ```tsx
 function Cart({ items }: { items: CartItem[] }) {
   // 렌더링 중에 계산한다. items와 항상 동기화된다.
@@ -45,12 +45,12 @@ function Cart({ items }: { items: CartItem[] }) {
 ```
 :::
 
-## useMemo는 실제로 무거운 계산에만 사용하기
+## 규칙: useMemo는 실제로 무거운 계산에만 사용하세요
 
 대부분의 계산은 충분히 빠르다. useMemo는 성능 문제가 측정된 후에 추가한다.
 
 :::tabs
-== Before
+== Bad
 ```tsx
 function UserList({ users, searchQuery }) {
   // 10-20명 정도의 유저를 필터링하는 데 useMemo는 과하다
@@ -63,7 +63,7 @@ function UserList({ users, searchQuery }) {
 }
 ```
 
-== After
+== Good
 ```tsx
 // 단순 계산은 그냥 매번 계산한다
 function UserList({ users, searchQuery }) {
@@ -93,12 +93,12 @@ function AnalyticsDashboard({ transactions }: { transactions: Transaction[] }) {
 ```
 :::
 
-## URL에서 파생되는 상태를 별도로 관리하지 않기
+## 규칙: URL에서 파생되는 상태를 별도로 관리하지 마세요
 
 현재 페이지, 필터, 정렬 조건 등이 URL에 이미 있다면 그것이 진실의 원천(source of truth)이다. 별도 state를 두면 URL과 동기화하는 코드가 필요해진다.
 
 :::tabs
-== Before
+== Bad
 ```tsx
 // URL에 이미 있는 정보를 별도 state로 복제하고 있다
 function ProductListPage() {
@@ -121,7 +121,7 @@ function ProductListPage() {
 }
 ```
 
-== After
+== Good
 ```tsx
 // URL을 유일한 진실의 원천으로 사용한다
 function ProductListPage() {
