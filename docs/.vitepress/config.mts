@@ -54,6 +54,10 @@ export default defineConfig({
           text: '상태 관리',
           items: [
             { text: '개요', link: '/state-management/' },
+            { text: 'Local vs Global 상태 판단 기준', link: '/state-management/local-vs-global' },
+            { text: '상태를 적절한 위치에 배치하기', link: '/state-management/state-placement' },
+            { text: '서버 상태와 클라이언트 상태 분리', link: '/state-management/server-vs-client-state' },
+            { text: '파생 가능한 값을 상태로 만들지 않기', link: '/state-management/derived-state' },
           ],
         },
       ],
