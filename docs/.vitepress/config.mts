@@ -46,6 +46,9 @@ export default defineConfig({
           text: '훅 설계',
           items: [
             { text: '개요', link: '/custom-hooks/' },
+            { text: '커스텀 훅 추출 기준', link: '/custom-hooks/extraction-criteria' },
+            { text: '훅 합성 패턴', link: '/custom-hooks/composition' },
+            { text: '훅의 책임 범위', link: '/custom-hooks/responsibility-scope' },
           ],
         },
       ],
