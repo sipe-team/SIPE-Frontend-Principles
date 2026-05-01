@@ -38,6 +38,9 @@ export default defineConfig({
           text: '컴포넌트 설계',
           items: [
             { text: '개요', link: '/component-design/' },
+            { text: '단일 책임 원칙으로 컴포넌트 경계 세우기', link: '/component-design/single-responsibility' },
+            { text: 'Compound Components로 복합 UI 설계하기', link: '/component-design/compound-components' },
+            { text: 'Headless UI 패턴으로 로직과 표현 분리하기', link: '/component-design/headless-ui' },
           ],
         },
       ],
