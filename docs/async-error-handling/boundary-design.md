@@ -13,7 +13,7 @@
 // 추천 목록 하나만 API 에러가 나도 페이지 전체가 작동 불능
 function DashboardPage() {
   return (
-    <AsyncBoundary rejectedFallback={<PageError />}>
+    <AsyncBoundary loadingFallback={<PageSkeleton />} errorFallback={<PageError />}>
       <UserProfile />
       <MainContent />
       <Recommendations /> {/* 👈 일부 기능의 장애가 전체 경험을 파괴함 */}
@@ -30,12 +30,15 @@ function DashboardPage() {
   return (
     <Layout>
       {/* 필수 데이터: 실패 시 메인 에러 화면 노출 */}
-      <AsyncBoundary rejectedFallback={<MainError />}>
+      <AsyncBoundary loadingFallback={<MainSectionSkeleton />} errorFallback={<MainError />}>
         <UserProfile />
         <MainContent />
       </AsyncBoundary>
       {/* 부가 데이터: 실패해도 나머지 기능은 사용 가능하도록 격리 */}
-      <AsyncBoundary rejectedFallback={<SmallRetryButton />}>
+      <AsyncBoundary
+        loadingFallback={<RecommendationsSkeleton />}
+        errorFallback={<SmallRetryButton />}
+      >
         <Recommendations />
       </AsyncBoundary>
     </Layout>

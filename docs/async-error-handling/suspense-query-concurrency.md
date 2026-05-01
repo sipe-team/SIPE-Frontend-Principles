@@ -31,8 +31,8 @@ function ReservationDetailData({ id }: { id: string }) {
 == Good
 
 ```tsx
-// SuspenseQueries: @suspensive/react-query-5에서 제공하는 컴포넌트형 유틸리티.
-// TanStack Query의 useSuspenseQueries와 동일한 목적(병렬 시작)을 렌더-프롭 형태로 사용할 수 있다.
+// 예시의 <SuspenseQueries>는 커뮤니티/팀 패키지(예: @suspensive/react-query 계열)에서 제공하는 패턴입니다.
+// 패키지를 쓰지 않는 경우 동일 목적은 useSuspenseQueries({ queries: [...] }) 한 번의 호출로 달성할 수 있습니다.
 
 // 독립 쿼리를 동시에 시작해 Waterfall을 제거
 function ReservationDetailData({ id }: { id: string }) {
@@ -53,7 +53,7 @@ function ReservationDetailData({ id }: { id: string }) {
 
 ### 패턴 B: parent-child waterfall
 
-아래 예시는 두 쿼리가 **서로 독립적인 경우**다. 부모 쿼리 결과에 자식 쿼리가 의존하는 경우(예: 부모에서 받은 `userId`로 자식 쿼리를 시작해야 하는 경우)는 순차 실행이 구조적으로 불가피하며, 이는 Waterfall이 아닌 **의존성**이다. 이 경우에는 라우트 진입 시점에 미리 요청하는 prefetch 전략이나, `enabled` 옵션으로 선행 데이터가 준비된 시점에 쿼리를 시작하는 방식을 고려할 수 있다.
+아래 예시는 두 쿼리가 **서로 독립적인 경우**다. 부모 쿼리 결과에 자식 쿼리가 의존하는 경우(예: 부모에서 받은 `userId`로 자식 쿼리를 시작해야 하는 경우)는 순차 실행이 구조적으로 불가피하며, 이는 Waterfall이 아닌 **의존성**이다. 의존성이 있는 순차 실행은 피하기 어렵기 때문에 별도의 개선이 필요한데, **의존 그래프를 줄이는 API 설계**, **라우트/상위에서의 prefetch**, **`placeholderData`/`initialData`로 체감 대기 축소** 같은 방법을 검토하고, `enabled` 옵션으로 선행 데이터가 준비된 시점에 쿼리를 시작하는 방식을 고려할 수 있다.
 
 :::tabs
 == Bad

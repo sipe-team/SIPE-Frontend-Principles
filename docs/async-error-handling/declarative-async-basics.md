@@ -226,7 +226,7 @@ function SubmitButton({ orderId }: { orderId: string }) {
     mutationFn: submitOrder,
     onError: (error) => {
       throw error;
-    }, // ❌ Boundary가 폼 전체를 날려버린다
+    }, // ❌ onError에서 throw는 Boundary에 안전하게 연결된다고 보기 어렵고, 폼/UI 복구 흐름도 깨지기 쉽다
   });
   return <button onClick={() => mutate(orderId)}>주문 제출</button>;
 }
@@ -260,7 +260,7 @@ function SubmitButton({ orderId }: { orderId: string }) {
 | `useQuery` 사용 중 ErrorBoundary에 에러가 잡히지 않음  | `throwOnError: true` 추가 또는 `useSuspenseQuery`로 전환      |
 | `enabled` 조건을 `useSuspenseQuery`에 억지로 끼워 맞춤 | `useQuery` + 명시적 분기로 유지                               |
 | 중첩된 Boundary 패턴이 화면마다 복붙됨                 | `AsyncBoundary`로 로딩/에러 정책을 단일 인터페이스로 통합     |
-| Mutation `onError`에서 에러를 throw해 Boundary로 위임  | `isError` + 인라인 에러 메시지로 호출부에서 직접 처리         |
+| Mutation `onError`에서 에러를 throw하는 패턴           | `isError` + 인라인 에러 메시지 등으로 호출부에서 직접 처리    |
 
 ## 참고 자료
 
