@@ -62,6 +62,10 @@ export default defineConfig({
           text: '비동기 처리와 에러 핸들링',
           items: [
             { text: '개요', link: '/async-error-handling/' },
+            { text: '선언형 비동기 처리 기본', link: '/async-error-handling/declarative-async-basics' },
+            { text: '에러 바운더리 설계', link: '/async-error-handling/boundary-design' },
+            { text: '에러 처리 전략', link: '/async-error-handling/error-handling-strategy' },
+            { text: 'Suspense + Query 동시성', link: '/async-error-handling/suspense-query-concurrency' },
           ],
         },
       ],
